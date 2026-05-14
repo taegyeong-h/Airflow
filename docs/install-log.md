@@ -1,4 +1,4 @@
-## 1. Ubuntu 22.04 In Virtualbox
+<img width="607" height="534" alt="image" src="https://github.com/user-attachments/assets/d37d6f5c-c532-40d1-98e6-571b1191c50a" /><img width="607" height="534" alt="image" src="https://github.com/user-attachments/assets/2815e0ab-3dd3-4122-9a90-079950577fa6" />## 1. Ubuntu 22.04 In Virtualbox
 
 - ubuntu incloude in sudo group  -- 최초 로그인 시 ubuntu 일반 유저도 sudo 명령어를 사용하기 위해서는 sudo group 에 ubuntu 계정을 넣어줘야한다  
   - su -        -- root 계정 로그인 (password 입력 프롬프트 뒤에 "$" -> "#" 확인)   
@@ -28,11 +28,28 @@
   - source ~/airflow_venv/bin/activate
   - (airflow_venv) ubuntu@ubuntu:~$
   - pip install --upgrade pip
-  - pip 24.0 -> 26.1.1 
+  - pip 24.0 -> 26.1.1
+  - export AIRFLOW_HOME=~/airflow    -- "너의 모든 설정 파일, 로그, 데이터베이스 파일은 이 폴더(~/airflow)에 저장하고 관리해!"라고 '집 주소'를 알려주는 것
+  - (airflow_venv) ubuntu@ubuntu:~$ echo "export AIRFLOW_HOME=~/airflow" >> ~/.bashrc
+  - tail -1 ~/.bashrc               -- bashrc 편집기 마지막 줄 확인
+  - export AIRFLOW_HOME=~/airflow
+  - echo $AIRFLOW_HOME   -> 출력값 (/home/ubuntu/airflow)
 
-export AIRFLOW_HOME=~/airflow    -- "너의 모든 설정 파일, 로그, 데이터베이스 파일은 이 폴더(~/airflow)에 저장하고 관리해!"라고 '집 주소'를 알려주는 것 same "JAVA_HOME"
-(airflow_venv) ubuntu@ubuntu:~$ echo "export AIRFLOW_HOME=~/airflow" >> ~/.bashrc
 
-tail -1 ~/.bashrc               -- bashrc 편집기 마지막 줄 확인
-export AIRFLOW_HOME=~/airflow   
+  Airflow 3.1.2 Install
+  - 1. 설치할 에어플로우 버전과 파이썬 버전 지정
+       - export AIRFLOW_VERSION=3.1.0
+       - export PYTHON_VERSION=3.11
 
+  - 2. 에어플로우 공식 '보증된 버전 목록' 주소 생성
+       - export CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
+
+  - 3. 드디어 진짜 설치 명령어 실행! (인터넷 속도에 따라 2~5분 정도 소요됩니다)
+      - pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
+      - (airflow_venv) ubuntu@ubuntu:~$ airflow version -> 출력값(3.1.0)
+
+
+
+[👉 Apache Airflow GitHub 바로가기](https://github.com/apache/airflow)  
+
+<img width="607" height="534" alt="20260514_170337" src="https://github.com/user-attachments/assets/9f4f4b57-a662-4f17-94eb-964c09ed4caf" />
