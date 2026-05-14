@@ -18,3 +18,21 @@
     - sudo add-apt-repository ppa:deadsnakes/ppa -y
     - sudo apt update
     - sudo apt install python3.11 python3.11-venv python3.11-dev -y
+    - python 3.11 --version
+      - python 3.11.15 -- 3.11.15 버전 확인 
+
+- airflow_venv'라는 이름의 3.11 전용 방(폴더) 만들기 -- 위에서도 말했지만 Ubuntu 22.04 default python 3.10 이라 3.11 전용 방을 만들어아 햠 
+  - python3.11 -m venv ~/airflow_venv
+
+- 그 방으로 들어가기 (활성화)
+  - source ~/airflow_venv/bin/activate
+  - (airflow_venv) ubuntu@ubuntu:~$
+  - pip install --upgrade pip
+  - pip 24.0 -> 26.1.1 
+
+export AIRFLOW_HOME=~/airflow    -- "너의 모든 설정 파일, 로그, 데이터베이스 파일은 이 폴더(~/airflow)에 저장하고 관리해!"라고 '집 주소'를 알려주는 것 same "JAVA_HOME"
+(airflow_venv) ubuntu@ubuntu:~$ echo "export AIRFLOW_HOME=~/airflow" >> ~/.bashrc
+
+tail -1 ~/.bashrc               -- bashrc 편집기 마지막 줄 확인
+export AIRFLOW_HOME=~/airflow   
+
