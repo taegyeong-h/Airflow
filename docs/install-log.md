@@ -1,6 +1,6 @@
 ## 1. Ubuntu 22.04 In Virtualbox
 
-- ubuntu incloude in sudo group  -- ubuntu 일반 유저도 sudo 명령어를 사용하기 위해서는 sudo group 에 ubuntu 계정을 넣어줘야한다  
+- ubuntu incloude in sudo group  -- 최초 로그인 시 ubuntu 일반 유저도 sudo 명령어를 사용하기 위해서는 sudo group 에 ubuntu 계정을 넣어줘야한다  
   - su -
   - password 입력
   - root@ubuntu:#  sudo usermod -aG sudo ubuntu
