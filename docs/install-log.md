@@ -160,6 +160,21 @@ vim ~/airflow/airflow.cfg
 (기존)sql_alchemy_conn = sqlite:////home/ubuntu/airflow/airflow.db 
 (수정) sql_alchemy_conn = postgresql+psycopg2://airflow:airflow@localhost/airflow
 
+1. JWT 발행자 설정 (500 에러 직접 해결)
+아까 보셨던 [api] 섹션에 이 한 줄을 타이핑해서 넣어주세요.
+
+Ini, TOML
+[api]
+auth_jwt_issuer = airflow  -- 추가 
+2. 세션 암호화 키 설정 (로그인 튕김 방지)
+[core] 섹션에서 secret_key를 찾아 아무 긴 문자열이나 넣어주세요. (자바의 세션 암호화 키와 같습니다.)
+
+Ini, TOML
+[core]
+secret_key = any-random-string-at-least-32-chars     -- 추가
+
+
+
 (airflow_venv) ubuntu@ubuntu:~$ airflow db migrate
 DB: postgresql+psycopg2://airflow:***@localhost/airflow
 Performing upgrade to the metadata database postgresql+psycopg2://airflow:***@localhost/airflow
@@ -201,7 +216,7 @@ User "admin" created with role "Admin"
 api-server , 스케쥴러 동시에 켜야 한다 
 
 airflow web UI 접속 
- airflow api-server --port 8080
+ airflow api-server --host 0.0.0.0 --port 8080      -- airflow 2.0 "hostname" , airflow 3.0 "host"
   ____________       _____________
  ____    |__( )_________  __/__  /________      __
 ____  /| |_  /__  ___/_  /_ __  /_  __ \_ | /| / /
