@@ -1,5 +1,13 @@
 ## 1. Ubuntu 22.04 In Virtualbox
 
+
+-- 
+# 목차 
+1. Ubuntu 22.04 Init Setup
+2. Python 3.11 Install
+3. Airflow 3.1 Install And Init Setup
+   
+
 - ubuntu incloude in sudo group  -- 최초 로그인 시 ubuntu 일반 유저도 sudo 명령어를 사용하기 위해서는 sudo group 에 ubuntu 계정을 넣어줘야한다  
   - su -        -- root 계정 로그인 (password 입력 프롬프트 뒤에 "$" -> "#" 확인)   
   - root@ubuntu:#  sudo usermod -aG sudo ubuntu   -- ubuntu 일반 계정에 sudo Group 에 포함시켜 sudo 사용권한을 가진다  
@@ -96,9 +104,6 @@ Airflow 3.0 Version
 pip install apache-airflow-providers-fab
 
 
-
-
-
 1. PostgreSQL 설치 및 설정  -- 메타데이터를 postgres로 수정 
 먼저 Ubuntu 시스템에 Postgres를 설치하고 Airflow가 사용할 전용 방을 만들어줘야 합니다.
 
@@ -108,20 +113,68 @@ sudo apt update
 sudo apt install postgresql postgresql-contrib -y
 
 # 2. Postgres 접속
-sudo -u postgres psql
-psql 창이 뜨면 아래 쿼리를 한 줄씩 입력하세요:
+sudo -u postgres psql     -- psql 창이 뜨면 아래 쿼리를 한 줄씩 입력하세요:
 
-SQL
--- 데이터베이스 생성
-CREATE DATABASE airflow_db;
+-- 1. 에어플로우용 유저 생성 (아이디: airflow / 비번: airflow)
+CREATE USER airflow WITH PASSWORD 'airflow';
 
--- 사용자 생성 및 비밀번호 설정 (원하는 걸로 바꾸셔도 됩니다)
-CREATE USER airflow_user WITH PASSWORD 'airflow_pass';
+-- 2. 에어플로우용 DB 생성 ("LATIN1" ->  "UTF-8")
+CREATE DATABASE airflow OWNER airflow ENCODING 'UTF8' LC_COLLATE 'C' LC_CTYPE 'C' TEMPLATE template0;
 
--- 권한 부여
-GRANT ALL PRIVILEGES ON DATABASE airflow_db TO airflow_user;
+-- 3. 권한 부여 (CREATE ROLE)
+GRANT ALL PRIVILEGES ON DATABASE airflow TO airflow;         --  airflow database airflow 유저한테 모든 권한(ALL PRIVILIGES)을 부여(GRANT)한다  
+- GRANT
 
--- 나가기
+-- 4. Airflow 3용 소유권 이전
+ALTER DATABASE airflow OWNER TO airflow;
+- ALTER DATABASE
+  
+-- 5. [필수] public 스키마 권한 (Postgres 15+ 대응)
+\c airflow      -- connect airflow database 
+GRANT ALL ON SCHEMA public TO airflow;   -- Airflow User에게 public (postgres default 스키마 명) 마스터 권한 입무 : public 스키마도 명시적으로 허락받은 사람만 써!
+- GRANT
+-- 6. 이제 볼 일 끝났으니 나가기
+
+\l
+airflow=# \l             (airflow DB LATIN1 -> UTF 8)  
+                             List of databases
+   Name    |  Owner   | Encoding | Collate | Ctype |   Access privileges
+-----------+----------+----------+---------+-------+-----------------------
+ airflow   | airflow  | LATIN1   | en_US   | en_US | =Tc/airflow          +
+           |          |          |         |       | airflow=CTc/airflow
+ postgres  | postgres | LATIN1   | en_US   | en_US |
+ template0 | postgres | LATIN1   | en_US   | en_US | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+ template1 | postgres | LATIN1   | en_US   | en_US | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+(4 rows)
+
+airflow=# \l          (잘된거) 
+                             List of databases
+   Name    |  Owner   | Encoding | Collate | Ctype |   Access privileges
+-----------+----------+----------+---------+-------+-----------------------
+ airflow   | airflow  | UTF8     | C       | C     | =Tc/airflow          +
+           |          |          |         |       | airflow=CTc/airflow
+ postgres  | postgres | LATIN1   | en_US   | en_US |
+ template0 | postgres | LATIN1   | en_US   | en_US | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+ template1 | postgres | LATIN1   | en_US   | en_US | =c/postgres          +
+           |          |          |         |       | postgres=CTc/postgres
+(4 rows)
+
+
+
+# Airflow DB가 "LATIN1" 이면 UTF-8로 바꿔줘야 한다 (한글이 깨지는 문제 발생) Ubuntu 22.04 언어 
+
+
+
 \q
 
 
+pip install apache-airflow-providers-postgres psycopg2-binary
+
+vim ~/airflow/airflow.cfg
+
+
+(기존)sql_alchemy_conn = sqlite:////home/ubuntu/airflow/airflow.db 
+(수정) sql_alchemy_conn = postgresql+psycopg2://airflow:airflow@localhost/airflow
