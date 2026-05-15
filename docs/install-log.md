@@ -163,15 +163,18 @@ vim ~/airflow/airflow.cfg
 1. JWT 발행자 설정 (500 에러 직접 해결)
 아까 보셨던 [api] 섹션에 이 한 줄을 타이핑해서 넣어주세요.
 
-Ini, TOML
 [api]
 auth_jwt_issuer = airflow  -- 추가 
 2. 세션 암호화 키 설정 (로그인 튕김 방지)
 [core] 섹션에서 secret_key를 찾아 아무 긴 문자열이나 넣어주세요. (자바의 세션 암호화 키와 같습니다.)
 
-Ini, TOML
 [core]
-secret_key = any-random-string-at-least-32-chars     -- 추가
+
+# 1. 기존에 있던 것
+dags_folder = /home/ubuntu/airflow/dags
+
+# 2. [추가] "암호화 키"
+secret_key = your-super-secret-key-at-least-32-chars
 
 
 
