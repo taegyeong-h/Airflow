@@ -183,7 +183,9 @@ DB: postgresql+psycopg2://airflow:***@localhost/airflow
 Performing upgrade to the metadata database postgresql+psycopg2://airflow:***@localhost/airflow
 
 
-airflow config get-value core auth_manager
+
+airflow config get-value api auth_jwt_issuer
+
 airflow.api_fastapi.auth.managers.simple.simple_auth_manager.SimpleAuthManager
 
 Auth Manager 교체 가이드 (Simple → FAB)
@@ -198,7 +200,7 @@ auth_manager = airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManage
 
 다시 확인
 airflow config get-value core auth_manager
-airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
+airflow
 
 -- 에어플로우가 내부적으로 실행한 쿼리 (의사 코드) airflow users create 에는 바로 아래 2줄을 입력한 샘이다
 -- INSERT INTO ab_user (username, first_name, last_name, email, password, active)
@@ -220,6 +222,7 @@ api-server , 스케쥴러 동시에 켜야 한다
 
 airflow web UI 접속 
  airflow api-server --host 0.0.0.0 --port 8080      -- airflow 2.0 "hostname" , airflow 3.0 "host"
+ 
   ____________       _____________
  ____    |__( )_________  __/__  /________      __
 ____  /| |_  /__  ___/_  /_ __  /_  __ \_ | /| / /
