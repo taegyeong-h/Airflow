@@ -1,11 +1,11 @@
-# 01. Ubuntu 24.04 기본 설정 및 파이썬 환경 구축
+# 01. Ubuntu 26.04 기본 설정 및 파이썬 환경 구축
 
 이 문서는 Airflow 3.1을 설치하기 전, 우분투 시스템 패키지를 최신화하고 필수 의존성 및 파이썬 가상환경을 구축하는 단계입니다.
 
 ## 💻 테스트 환경 (Environment)
-- **OS**: Ubuntu 24.04.4 LTS (Noble Numbat)
+- **OS**: Ubuntu 26.04 LTS (Noble Numbat)
 - **Python**: v3.12.3 (Ubuntu 기본 제공 버전)
-- **Airflow**: v3.1.0
+- **Airflow**: v3.2.0
 
 ---
 
