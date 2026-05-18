@@ -6,3 +6,4 @@
 - **Host OS**: Windows 10
 - **Docker Desktop**: v4.73 이상 (WSL2 Backend 필수)
 - **Docker Compose**: v2.x 이상
+- **Astro CLI**: v1.34.0
