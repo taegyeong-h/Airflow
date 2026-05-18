@@ -23,8 +23,8 @@ $ sudo apt update && sudo apt upgrade -y
 $ lsb_release -a
 No LSB modules are available.
 Distributor ID: Ubuntu
-Description:    Ubuntu 24.04.4 LTS
-Release:        24.04
+Description:    Ubuntu 26.04 LTS
+Release:        26.04
 Codename:       noble
 
 $ python3 --version
@@ -33,5 +33,6 @@ Python 3.12.3
 
 ## 시스템 패키지 업데이트 및 업그레이드
 ```bash
-$ sudo apt update && sudo apt upgrade -y net-tools vim openssh-server pip
+$ sudo apt update && sudo apt upgrade -y
+$ sudo apt install -y net-tools vim openssh-server pip
 ```
