@@ -33,5 +33,5 @@ Python 3.12.3
 
 ## 시스템 패키지 업데이트 및 업그레이드
 ```bash
-$ sudo apt update && sudo apt upgrade -y
+$ sudo apt update && sudo apt upgrade -y net-tools vim openssh-server pip
 ```
