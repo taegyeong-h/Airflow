@@ -24,7 +24,33 @@ executor = LocalExecutor
 ```
 
 # 1. 새 장부(PostgreSQL)에 에어플로우 전용 메타 테이블들 붓기 
+```
 airflow db migrate
+2026-05-19T09:51:31.924696Z [info     ] setup plugin alembic.autogenerate.schemas [alembic.runtime.plugins] loc=plugins.py:37
+2026-05-19T09:51:31.925164Z [info     ] setup plugin alembic.autogenerate.tables [alembic.runtime.plugins] loc=plugins.py:37
+2026-05-19T09:51:31.925308Z [info     ] setup plugin alembic.autogenerate.types [alembic.runtime.plugins] loc=plugins.py:37
+2026-05-19T09:51:31.926031Z [info     ] setup plugin alembic.autogenerate.constraints [alembic.runtime.plugins] loc=plugins.py:37
+2026-05-19T09:51:31.926235Z [info     ] setup plugin alembic.autogenerate.defaults [alembic.runtime.plugins] loc=plugins.py:37
+2026-05-19T09:51:31.926377Z [info     ] setup plugin alembic.autogenerate.comments [alembic.runtime.plugins] loc=plugins.py:37
+2026-05-19T09:51:32.466067Z [info     ] Performing upgrade to the metadata database [airflow.cli.commands.db_command] loc=db_command.py:134 url=postgresql+psycopg2://airflow:***@localh              ost:5432/airflow
+2026-05-19T09:51:32.473855Z [info     ] Context impl PostgresqlImpl.   [alembic.runtime.migration] loc=migration.py:210
+2026-05-19T09:51:32.474221Z [info     ] Will assume transactional DDL. [alembic.runtime.migration] loc=migration.py:213
+2026-05-19T09:51:32.669713Z [info     ] Context impl PostgresqlImpl.   [alembic.runtime.migration] loc=migration.py:210
+2026-05-19T09:51:32.670122Z [info     ] Will assume transactional DDL. [alembic.runtime.migration] loc=migration.py:213
+2026-05-19T09:51:32.689184Z [info     ] Creating Airflow database tables from the ORM [airflow.utils.db] loc=db.py:739
+2026-05-19T09:51:32.689450Z [info     ] Creating global lock context   [airflow.utils.db] loc=db.py:720
+2026-05-19T09:51:32.704297Z [info     ] Pool status: Pool size: 5  Connections in pool: 0 Current Overflow: -3 Current Checked out connections: 2 [airflow.utils.db] loc=db.py:723
+2026-05-19T09:51:32.704470Z [info     ] Creating metadata              [airflow.utils.db] loc=db.py:725
+2026-05-19T09:51:33.001322Z [info     ] Getting alembic config         [airflow.utils.db] loc=db.py:728
+2026-05-19T09:51:33.003438Z [info     ] Stamping migration head        [airflow.utils.db] loc=db.py:731
+2026-05-19T09:51:33.007600Z [info     ] Context impl PostgresqlImpl.   [alembic.runtime.migration] loc=migration.py:210
+2026-05-19T09:51:33.008295Z [info     ] Will assume transactional DDL. [alembic.runtime.migration] loc=migration.py:213
+2026-05-19T09:51:33.038873Z [info     ] Running stamp_revision  -> 1d6611b6ab7c [alembic.runtime.migration] loc=migration.py:621
+2026-05-19T09:51:33.051231Z [info     ] Airflow database tables created [airflow.utils.db] loc=db.py:734
+2026-05-19T09:51:33.191018Z [info     ] Database migration done!       [airflow.cli.commands.db_command] loc=db_command.py:152
 
+
+```
 # 2. 에어플로우 공장 가동하기 (종합 선물 세트 콤보 기동)
 airflow standalone
+
