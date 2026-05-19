@@ -10,6 +10,7 @@
 ## 목차 
 ### Ubuntu 26.04 초기 설정 및 Python 3.11 가상환경 구축
 ### Airflow 3.2.1 Install And Init Setup
+### Postgres 설치 및 Airflow 메타데이터 DB 셋업 
 <br>
 <br>
 
@@ -57,6 +58,7 @@ source ~/.bashrc
 echo $AIRFLOW_HOME
 # 출력 결과: /home/ubuntu/airflow
 
+pip install --upgrade pip apache-airflow-providers-postgres psycopg2-binary 
 ```
 
 ## Airflow 3.2.1 Install And Init Setup
