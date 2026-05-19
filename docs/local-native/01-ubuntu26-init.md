@@ -1,5 +1,10 @@
 # 1. Ubuntu 26.04 In Virtualbox
 
+## 설치 환경
+### Host OS: Win 10
+### Guest OS: Ubuntu 26.04
+### Python: V3.11
+### Airflow: 3.2
 
 -- 
 ## 목차 
