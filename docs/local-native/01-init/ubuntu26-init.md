@@ -149,23 +149,24 @@ sudo vim /etc/postgresql/18/main/postgresql.conf
 #listen_addresses = 'localhost'
 listen_addresses = '*'
 
-4. 포스트그레스 깨우기 (재시작)
-Bash
-sudo systemctl restart postgresql
+
 
 ## 127.0.0.1:5432 -> 0.0.0.0 으로 변경 완료
 sudo ss -tlpn | grep 5432
 LISTEN 0      200          0.0.0.0:5432      0.0.0.0:*    users:(("postgres",pid=46135,fd=6)) 
 LISTEN 0      200             [::]:5432         [::]:*    users:(("postgres",pid=46135,fd=7))
 
+sudo vim /etc/postgresql/18/main/pg_hba.conf
+host    all             all             0.0.0.0/0               scram-sha-256
 
+4. 포스트그레스 깨우기 (재시작)
+Bash
+sudo systemctl restart postgresql
+```
 
+#Localhost OS Dbeaver 접속
 
-
-
-
-
-
+<img width="1164" height="735" alt="image" src="https://github.com/user-attachments/assets/e545c9aa-4a69-46e9-aae6-351a04a493eb" />
 
 
 
