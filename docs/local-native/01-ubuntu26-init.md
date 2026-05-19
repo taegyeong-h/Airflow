@@ -3,13 +3,12 @@
 
 -- 
 ## 목차 
-### 1. Ubuntu 26.04 Init Setup
-### 2. Python 3.11 Install
-### 3. Airflow 3.2 Install And Init Setup
+### Ubuntu 26.04 초기 설정 및 Python 3.11 가상환경 구축
+### Airflow 3.2 Install And Init Setup
 <br>
 <br>
 
-## 1. Ubuntu 26.04 Init Setup
+## Ubuntu 26.04 초기 설정 및 Python 3.11 가상환경 구축
 
 ### 1) Root 유저로 전환 후 ubuntu 유저를 sudo 그룹에 추가
 ```bash
@@ -26,29 +25,38 @@ sudo apt update && sudo apt upgrade -y
 
 # 필수 도구(네트워크 체크, 텍스트 에디터, SSH, pip) 설치
 sudo apt install -y net-tools vim openssh-server pip
+
+# python 3.11 install
+sudo add-apt-repository ppa:deadsnakes/ppa -y
+sudo apt update
+sudo apt install python3.11 python3.11-venv python3.11-dev -y
+python3.11 --version
+# 출력 결과: Python 3.11.15
 ```
 
-- python 3.11 install  
-  - DeadSnakes PPA 저장소 추가 및 설치   -- (default Python 3.10) Python 3.11을 설치하려면 deadsnakes PPA 저장소를 사용하는 것이 가장 일반적이고 권장
-    - sudo add-apt-repository ppa:deadsnakes/ppa -y
-    - sudo apt update
-    - sudo apt install python3.11 python3.11-venv python3.11-dev -y
-    - python 3.11 --version
-      - python 3.11.15 -- 3.11.15 버전 확인 
+### 3) Airflow 전용 가상환경(venv) 생성 및 셋업
+```
+bash
+# Ubuntu 26.04의 기본 파이썬(3.14)과 분리하기 위해 독립된 가상환경 방을 만듭니다.
+python3.2 -m venv ~/airflow_venv
+source ~/airflow_venv/bin/activate
+# 정상 활성화 시 터미널 프롬프트 앞에 (airflow_venv)가 표시됩니다.
 
-- airflow_venv'라는 이름의 3.11 전용 방(폴더) 만들기 -- 위에서도 말했지만 Ubuntu 22.04 default python 3.10 이라 3.11 전용 방을 만들어아 햠 
-  - python3.11 -m venv ~/airflow_venv
+# 1. 터미널이 켜질 때마다 자동으로 경로를 잡도록 설정 파일 맨 아래에 주입 (한 줄로 끝)
+echo "export AIRFLOW_HOME=~/airflow" >> ~/.bashrc
 
-- 그 방으로 들어가기 (활성화)
-  - source ~/airflow_venv/bin/activate
-  - (airflow_venv) ubuntu@ubuntu:~$
-  - pip install --upgrade pip
-  - pip 24.0 -> 26.1.1
-  - export AIRFLOW_HOME=~/airflow    -- "너의 모든 설정 파일, 로그, 데이터베이스 파일은 이 폴더(~/airflow)에 저장하고 관리해!"라고 '집 주소'를 알려주는 것
-  - (airflow_venv) ubuntu@ubuntu:~$ echo "export AIRFLOW_HOME=~/airflow" >> ~/.bashrc
-  - tail -1 ~/.bashrc               -- bashrc 편집기 마지막 줄 확인
-  - export AIRFLOW_HOME=~/airflow
-  - echo $AIRFLOW_HOME   -> 출력값 (/home/ubuntu/airflow)
+# 2. 변경된 설정 파일을 현재 터미널 창에 바로 새로고침(적용)
+source ~/.bashrc
+
+# 3. 정상적으로 경로가 잡혔는지 확인 (출력 결과: /home/ubuntu/airflow)
+echo $AIRFLOW_HOME
+# 출력 결과: /home/ubuntu/airflow
+
+```
+
+
+
+
 
 
   Airflow 3.1.2 Install
