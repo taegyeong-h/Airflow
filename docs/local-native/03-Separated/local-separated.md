@@ -1,6 +1,10 @@
 
-## airflow db migrate
+<img width="1682" height="1083" alt="image" src="https://github.com/user-attachments/assets/c3633c51-3280-4fe1-8945-54c3206eb69b" />
 
+```
+# airflow.cfg 이후 migrate 
+airflow db migrate
+```
 
 결과적으로 유저님이 하시는 local-separated 공장은 푸티 창 여러 개 열 필요 없이 딱 이 3마리만 출근시키면 끝납니다.
 
