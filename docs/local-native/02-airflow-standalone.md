@@ -15,7 +15,19 @@ source ~/airflow_venv/bin/activate
 airflow standalone
 ```
 
-## 2. Airflow WebUI 실행
+## 2. Airflow WebUI 실행 및 init 패스워드 확인
 ```bash
-# host OS 브라우저에서 localhost:8080 검색
+# host OS 브라우저에서 [airflow server]:8080 검색
+
+# 에어플로우가 자동으로 생성한 무작위 문자열  
+cat ~/airflow/simple_auth_manager_passwords.json.generated
+{"admin": "whv4uKffU5hSPVGH"}
+
+# 관리자 패스워드 수정 (서버 안내려도 바로 적용됌)
+vim ~/airflow/simple_auth_manager_passwords.json.generated
+{"admin": "admin"}
 ```
+<img width="462" height="595" alt="image" src="https://github.com/user-attachments/assets/44dc0320-2245-496a-8659-ba01e4117416" />
+
+
+
