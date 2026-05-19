@@ -66,10 +66,11 @@ echo $AIRFLOW_HOME
 
 화면 왼쪽 상단에 main 이라고 써진 버튼이 보일 거예요. 그걸 클릭하면 메뉴가 뜹니다.
 
-거기에 3.2을 입력하거나 목록에서 constraints-3.2을 찾아서 클릭
+*"거기에 3.2을 입력하거나 목록에서 constraints-3-2*를 찾아서 클릭"
 <img width="736" height="698" alt="image" width="50%" src="https://github.com/user-attachments/assets/9762e6a0-caf5-4fef-9f8f-e1a34f39ef37" />
 
 파이썬 버전 3.11 
+<br>
 <img width="1429" height="1354" alt="image" width="50%" src="https://github.com/user-attachments/assets/08756421-06aa-44e2-b197-ff47b7e083a1" />
 
 ```bash
