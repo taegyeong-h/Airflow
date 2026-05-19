@@ -15,12 +15,22 @@
 sql_alchemy_conn = postgresql+psycopg2://airflow:airflow@localhost:5432/airflow
 
 
+
+
 [core]
 # SQLite 전용 일렬종대 지휘관 해고
 # executor = SequentialExecutor
 
 # 포스트그레스 전용 멀티 워커 병렬 지휘관 임명!
 executor = LocalExecutor
+
+# 에어플로우 시스템 전체를 통틀어 동시에(Concurrently) 실행 상태(running)로 존재할 수 있는 태스크 프로세스의 총합이 최대 32개 (리소스를 많이 잡아먹는다
+#parallelism = 32
+parallelism = 10
+
+# 하나의 Dag 총 Task 16개(개당 150M 메모리 점유)
+#max_active_tasks_per_dag = 16
+max_active_tasks_per_dag = 10
 ```
 
 # 1. 새 장부(PostgreSQL)에 에어플로우 전용 메타 테이블들 붓기 
