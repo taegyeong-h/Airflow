@@ -1,5 +1,12 @@
 # 🏗️ 에어플로우 분리형(Separated) 아키텍처 3대장
-## 1단계: local-separated (단일 서버 프로세스 분리형) ➔ 💡 현재 유저님 단계!
+
+> 🚨 **중요 경고 (Architectural Restriction)**
+> **본 장에서 다루는 모든 분리형(Separated) 아키텍처에서는 SQLite 사용이 절대 불가능합니다.**
+> 
+> * **이유:** 분리형 구조는 스케줄러, 웹서버, API 서버가 각각 독립된 프로세스로 쪼개져 가동됩니다. 파일 하나에 의존하는 SQLite는 여러 독립 프로세스가 동시에 장부를 수정할 때 발생하는 **파일 잠금(Database Locked) 충돌**을 견디지 못합니다.
+> * **결론:** 따라서 `03-Separated` 장의 모든 아키텍처 실습은 중앙 집중형 네트워크 DBMS인 **PostgreSQL을 필수로 연동**하여 진행합니다.
+
+## 1단계: local-separated (단일 서버 프로세스 분리형) 💡 로컬 개발 환경 세팅!
 지휘관(Executor): LocalExecutor
 
 구조: 컴퓨터는 딱 1대만 씁니다. 하지만 내부 장부는 강력한 PostgreSQL로 바꾸고, 멀티 푸티 세션을 열어 webserver, scheduler, fastapi-api 프로세스를 완전히 독립된 방으로 격리해서 실행합니다.
