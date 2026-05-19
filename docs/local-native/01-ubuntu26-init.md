@@ -4,7 +4,7 @@
 -- 
 ## 목차 
 ### Ubuntu 26.04 초기 설정 및 Python 3.11 가상환경 구축
-### Airflow 3.2 Install And Init Setup
+### Airflow 3.2.1 Install And Init Setup
 <br>
 <br>
 
@@ -54,40 +54,44 @@ echo $AIRFLOW_HOME
 
 ```
 
-
-
-
-
-
-  Airflow 3.1.2 Install
+## Airflow 3.2.1 Install And Init Setup
  
 [👉 Apache Airflow GitHub 바로가기](https://github.com/apache/airflow)  
+
+
 화면 왼쪽 상단에 main 이라고 써진 버튼이 보일 거예요. 그걸 클릭하면 메뉴가 뜹니다.
 
-거기에 3.1.2을 입력하거나 목록에서 constraints-3.1.2을 찾아서 클릭하세요
-<img width="607" height="534" alt="20260514_170337" src="https://github.com/user-attachments/assets/9f4f4b57-a662-4f17-94eb-964c09ed4caf" />
+거기에 3.2을 입력하거나 목록에서 constraints-3.2을 찾아서 클릭
+<img width="736" height="698" alt="image" width="50%" src="https://github.com/user-attachments/assets/9762e6a0-caf5-4fef-9f8f-e1a34f39ef37" />
 
-파이썬 버전 3.11 클릭
-<img width="1303" height="1135" alt="image" src="https://github.com/user-attachments/assets/82b9a8b6-bed9-4aac-9037-7453409da1b1" />
+파이썬 버전 3.11 
+<img width="1429" height="1354" alt="image" width="50%" src="https://github.com/user-attachments/assets/08756421-06aa-44e2-b197-ff47b7e083a1" />
 
- - 1. 설치할 에어플로우 버전과 파이썬 버전 지정
-       - export AIRFLOW_VERSION=3.1.2
-       - export PYTHON_VERSION=3.11
+```bash
+# 1. 3.2.1 전용으로 고정된 제약조건 URL 주소로 변경
+export CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-3.2.1/constraints-3.11.txt"
 
-  - 2. 에어플로우 공식 '보증된 버전 목록' 주소 생성
-       - export CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
+# 2. 설치 명령어 재실행
+pip install "apache-airflow==3.2.1" --constraint "${CONSTRAINT_URL}"
+airflow version
+# 출력결과: 3.2.1
 
-  - 3. 드디어 진짜 설치 명령어 실행! (인터넷 속도에 따라 2~5분 정도 소요됩니다)
-      - pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
-      - (airflow_venv) ubuntu@ubuntu:~$ airflow version -> 출력값(3.1.2)
+
+
+
+
+
+
 
 -- Airflow가 데이터를 저장할 메타데이터(SQLite)를 생성
 airflow db migrate
 - Database migrating done!
 
+```
 1. 관리자 계정 생성 아직 로그인할 수 있는 "열쇠"가 없습니다. 웹 UI에 접속하려면 계정을 먼저 파야 합니다.
 
-
+## 2. Airflow 3.2 설치 및 Standalone 실행 (빠른 배포용)
+(현재 진행 중인 standalone + SQLite 관련 내용 쭉 작성...)
 
 # FAB(사용자 관리 모듈) 설치
 pip install apache-airflow-providers-fab
