@@ -16,7 +16,10 @@
 
 ## Ubuntu 26.04 초기 설정 및 Python 3.11 가상환경 구축
 
-### 1) Root 유저로 전환 후 ubuntu 유저를 sudo 그룹에 추가
+### 1) Root 유저로 전환 후 ubuntu 유저를 sudo 그룹에 추가 
+> 💡 **주의 / 선택 사항**
+> 일반 유저(`ubuntu`) 상태에서 `sudo` 명령어가 동작하지 않거나 권한 에러가 발생할 때만 진행하세요. (기본적으로 권한이 있다면 건너뛰셔도 됩니다.)
+> 
 ```bash
 su -
 usermod -aG sudo ubuntu
