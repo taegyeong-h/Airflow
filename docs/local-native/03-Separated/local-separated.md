@@ -1,21 +1,4 @@
 
-<img width="50%" height="1083" alt="image" src="https://github.com/user-attachments/assets/c3633c51-3280-4fe1-8945-54c3206eb69b" />
-
-
-
-
-# 웹서버 설정 파일 열기 
-```
-vim ~/airflow/webserver_config.py
-
-# 1. 기본 언어 영어로 고정
-BABEL_DEFAULT_LOCALE = 'en'
-BABEL_SUPPORTED_LOCALES = ['en']
-
-# 2. 로그인 창에 회원가입(Register) 버튼 만들기 (필요 없으면 False로)
-AUTH_USER_REGISTRATION = True
-AUTH_USER_REGISTRATION_ROLE = "Admin"  # 또는 "Op"
-
 
 # Airflow config 셋업
 
@@ -150,6 +133,9 @@ cat ~/airflow/simple_auth_manager_passwords.json.generated
 vim ~/airflow/simple_auth_manager_passwords.json.generated
 {"admin": "admin"}
 ```
+
+WebUi 이동 후 한국어 -> 영어로 바꾸기
+<img width="367" height="396" alt="image" src="https://github.com/user-attachments/assets/e4796857-a074-4c65-b5fc-aa0e118ec720" />
 
 
 ### 🏁 가동 완료 및 아키텍처 검증
