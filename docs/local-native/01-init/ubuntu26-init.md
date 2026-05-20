@@ -60,7 +60,7 @@ python3.11 -m venv ~/airflow_venv
 source ~/airflow_venv/bin/activate
 # 정상 활성화 시 터미널 프롬프트 앞에 (airflow_venv)가 표시됩니다.
 
-pip install --upgrade pip apache-airflow-providers-postgres psycopg2-binary 
+pip install --upgrade pip apache-airflow-providers-postgres psycopg2-binary apache-airflow-providers-amazon
 ```
 
 ## Airflow 3.2.1 Install And Init Setup
