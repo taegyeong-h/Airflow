@@ -135,7 +135,7 @@ vim ~/airflow/simple_auth_manager_passwords.json.generated
 ```
 
 
-# 이후 수정사항 
+# WebUi 이후 수정사항 
 ```
 WebUi 이동 후 한국어 -> 영어로 바꾸기
 ```
@@ -156,10 +156,10 @@ airflow api-server -D && airflow scheduler -D && airflow triggerer -D && airflow
 
 #tghong이라는 key: value가 생겼다 tghong 패스워스 변경후 Webui 재접속
 (airflow_venv) ubuntu@airflow32:~$ cat airflow/simple_auth_manager_passwords.json.generated
-{"admin": "admin", "tgong": "UES6gHB8SwQur3SC"}
+{"admin": "admin", "tghong": "UES6gHB8SwQur3SC"}
 
 vim airflow/simple_auth_manager_passwords.json.generated
-{"admin": "admin", "tgong": "tghong"}
+{"admin": "admin", "tghong": "tghong"}
 ```
 ### 🏁 가동 완료 및 아키텍처 검증
 
