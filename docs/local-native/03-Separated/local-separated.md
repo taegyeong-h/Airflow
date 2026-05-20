@@ -134,10 +134,33 @@ vim ~/airflow/simple_auth_manager_passwords.json.generated
 {"admin": "admin"}
 ```
 
+
+# 이후 수정사항 
+```
 WebUi 이동 후 한국어 -> 영어로 바꾸기
+```
 <img width="367" height="396" alt="image" src="https://github.com/user-attachments/assets/e4796857-a074-4c65-b5fc-aa0e118ec720" />
 
+# 새로운 유저(tghong) 등록 
+```
+# airflow.cfg
+[core]
+#simple_auth_manager_users = admin:admin
+simple_auth_manager_users = admin:admin,tghong:admin
 
+# 좀비 프로세스 전멸
+sudo pkill -f airflow
+
+# 4대장 동시 리스타트
+airflow api-server -D && airflow scheduler -D && airflow triggerer -D && airflow dag-processor -D
+
+#tghong이라는 key: value가 생겼다 tghong 패스워스 변경후 Webui 재접속
+(airflow_venv) ubuntu@airflow32:~$ cat airflow/simple_auth_manager_passwords.json.generated
+{"admin": "admin", "tgong": "UES6gHB8SwQur3SC"}
+
+vim airflow/simple_auth_manager_passwords.json.generated
+{"admin": "admin", "tgong": "tghong"}
+```
 ### 🏁 가동 완료 및 아키텍처 검증
 
 위의 4가지 명령어(`api-server`, `scheduler`, `triggerer`, `dag-processor`)가 백그라운드에서 정상 가동되었다면, 겉보기에는 기존 Standalone 모드와 같은 웹 화면이 뜨지만 내부 엔진은 완전히 달라진 상태입니다.
