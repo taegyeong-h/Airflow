@@ -123,8 +123,10 @@ ___  ___ |  / _  /   _  __/ _  / / /_/ /_ |/ |/ /
 
 ### airflow.config 수정 시 재실행 
 ```
+# "airflow db migrate" 는 airflow.config 에서 DB부분 수정할 때만 사용한다
+# aiorflow config 에서 [x] < 부분에 아래 4개 서비스에 포함된다면 해당 서비스만 죽이고 재 실행 하면 된다 
 sudo pkill -f airflow
-airflow db migrate
+airflow db migrate                                                 
 airflow api-server -D && airflow scheduler -D && airflow triggerer -D && airflow dag-processor -D
 ```
 
