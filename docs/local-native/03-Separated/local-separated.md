@@ -130,6 +130,16 @@ airflow db migrate
 airflow api-server -D && airflow scheduler -D && airflow triggerer -D && airflow dag-processor -D
 ```
 
+```
+# 에어플로우가 자동으로 생성한 무작위 문자열  
+cat ~/airflow/simple_auth_manager_passwords.json.generated
+{"admin": "whv4uKffU5hSPVGH"}
+
+# 관리자 패스워드 수정 (서버 안내려도 바로 적용됌)
+vim ~/airflow/simple_auth_manager_passwords.json.generated
+{"admin": "admin"}
+```
+
 
 ### 🏁 가동 완료 및 아키텍처 검증
 
