@@ -85,9 +85,8 @@ export CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constrai
 pip install "apache-airflow==3.2.1" --constraint "${CONSTRAINT_URL}"
 airflow version
 # 출력결과: 3.2.1
-# 3. 에어플로우 홈 디렉토리 이동 및 DAG 폴더 생성 (유저님 생각 정답!)
-cd ~/airflow
-mkdir dags
+# 3. 에어플로우 DAG 폴더 생성 (유저님 생각 정답!)
+mkdir -p airflow/dags
 ```
 
 
@@ -100,14 +99,19 @@ mkdir dags
 ```bash
 # PostgreSQL 엔진 설치
 sudo apt install -y postgresql postgresql-contrib
+
+psql --version
+# 출력결과: psql (PostgreSQL) 18.3 (Ubuntu 18.3-1)
 ```
 
-### 4-2. Airflow 전용 데이터베이스 및 유저 생성
+### 4-2. Airflow 메타데이터 RDBMS 생성 및 셋업
 PostgreSQL 관리자 계정으로 접속하여, Airflow 엔진이 사용할 독립된 데이터베이스 스키마와 접근 계정을 생성하고 권한을 부여합니다.
 
 ```bash
+
 1. postgres 마스터 계정으로 전환하여 SQL 콘솔(psql) 진입
-sudo -i -u postgres psql
+
+sudo -i -u postgres psql;
 SQL
 -- 2. 에어플로우 전용 계정 생성 (계정명: airflow / 비밀번호: airflow)
 CREATE USER airflow WITH PASSWORD 'airflow';
@@ -116,12 +120,15 @@ CREATE USER airflow WITH PASSWORD 'airflow';
 -- 3. 메타데이터를 저장할 독립된 데이터베이스 생성 (DB명: airflow)
 CREATE DATABASE airflow;
 # 출력결과: CREATE DATABASE
--- 4. 생성한 데이터베이스에 대한 모든 권한을 airflow 유저에게 부여
-GRANT ALL PRIVILEGES ON DATABASE airflow TO airflow;
-출력결과: GRANT
 
+-- 4. airflow 계정이 airflow 데이터베이스 소유주가 되어 "DB"와 "테이블" crud를 모두 할 수있다 
 ALTER DATABASE airflow OWNER TO airflow;
 ALTER DATABASE
+
+-- 5. airflow DB 안 "테이블" 만 헨들링이 필요한 유저에 권한을 넣어줄 수 있다  
+GRANT ALL PRIVILEGES ON DATABASE airflow TO {테이블 crud 권한이 필요한 DB 접근 유저};
+출력결과: GRANT
+
 
 postgres=# \l
                                                      List of databases
@@ -138,32 +145,32 @@ postgres=# \l
 
 
 -- 5. 콘솔 탈출
-\q or exit
+\q
 
-# 외부에서 접근 가능하도록 설정 
+# 외부에서 접근 가능하도록 설정
+ "172.0.0.1" 은 내 로컬 pc에서만 가능하지만 외부에서도 접근을 이용하게 하기 위해 위험하지만 테스트용으로 0.0.0.0으로 잡아줬다 
 sudo ss -tlpn | grep 5432    
 [sudo: authenticate] Password:
-LISTEN 0      200        127.0.0.1:5432      0.0.0.0:*    users:(("postgres",pid=44794,fd=7))
+LISTEN 0      200        "127.0.0.1:5432"      0.0.0.0:*    users:(("postgres",pid=44794,fd=7))
 LISTEN 0      200            [::1]:5432         [::]:*    users:(("postgres",pid=44794,fd=6))
 
 sudo vim /etc/postgresql/18/main/postgresql.conf
 
-#listen_addresses = 'localhost'
-listen_addresses = '*'
-
-
-
-## 127.0.0.1:5432 -> 0.0.0.0 으로 변경 완료
-sudo ss -tlpn | grep 5432
-LISTEN 0      200          0.0.0.0:5432      0.0.0.0:*    users:(("postgres",pid=46135,fd=6)) 
-LISTEN 0      200             [::]:5432         [::]:*    users:(("postgres",pid=46135,fd=7))
+60 #listen_addresses = 'localhost'
+61 listen_addresses = '*'
 
 sudo vim /etc/postgresql/18/main/pg_hba.conf
+# 맨 마지막 라인에 추가
 host    all             all             0.0.0.0/0               scram-sha-256
 
 4. 포스트그레스 깨우기 (재시작)
 Bash
 sudo systemctl restart postgresql
+
+## 127.0.0.1:5432 -> 0.0.0.0 으로 변경 완료
+sudo ss -tlpn | grep 5432
+LISTEN 0      200          0.0.0.0:5432      0.0.0.0:*    users:(("postgres",pid=46135,fd=6)) 
+LISTEN 0      200             [::]:5432         [::]:*    users:(("postgres",pid=46135,fd=7))
 ```
 
 #Localhost OS Dbeaver 접속
