@@ -1,4 +1,4 @@
-<img width="1048" height="702" alt="image" src="https://github.com/user-attachments/assets/c9dc9b24-e64d-46ba-b0a7-5d84e21e772e" /># 02. Airflow Standalone 구동 및 웹 UI 확인
+# 02. Airflow Standalone 구동 및 웹 UI 확인
 
 이 단계에서는 설치 완료된 Airflow를 원클릭 `standalone` 모드로 구동하고, 웹 브라우저를 통해 관리자 화면에 접속하는 과정을 다룹니다.
 
