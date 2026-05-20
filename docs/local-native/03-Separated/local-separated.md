@@ -20,6 +20,12 @@ load_examples = False
 #default_timezone = utc
 default_timezone = Asia/Seoul
 
+# 3. 총 사령관 병행 OR 일괄 
+# executor = SequentialExecutor 
+
+# 포스트그레스 전용 멀티 워커 병렬 지휘관 임명!
+executor = LocalExecutor
+
 [api]
 host = 0.0.0.0  
 
@@ -28,17 +34,26 @@ port = 8080
 # cpu 단일 코어 하나만 사용하겠다 webai worker는 한명이면 된다
 workers = 1 
 
+# 에어플로우 시스템 전체를 통틀어 동시에(Concurrently) 실행 상태(running)로 존재할 수 있는 태스크 프로세스의 총합이 최대 32개 (리소스를 많이 잡아먹는다
+#parallelism = 32
+parallelism = 10
 
+# 하나의 Dag 총 Task 16개(개당 150M 메모리 점유)
+#max_active_tasks_per_dag = 16
+max_active_tasks_per_dag = 10
 ```
 
+``` bash
 
-
-```
 # airflow.cfg 이후 migrate 
 airflow db migrate
 ```
 
 결과적으로 유저님이 하시는 local-separated 공장은 푸티 창 여러 개 열 필요 없이 딱 이 3마리만 출근시키면 끝납니다.
+
+'''
+ airflow api-server -D && airflow scheduler -D && airflow triggerer -D && airflow dag-processor -D
+'''
 
 #### airflow api-server -D ➔ 유저용 웹 화면을 보여주면서, 동시에 일꾼들의 장부 보고까지 혼자 다 처리하는 만능 매니저
 ```
