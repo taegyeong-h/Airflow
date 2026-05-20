@@ -1,5 +1,37 @@
 
-<img width="1682" height="1083" alt="image" src="https://github.com/user-attachments/assets/c3633c51-3280-4fe1-8945-54c3206eb69b" />
+<img width="50%" height="1083" alt="image" src="https://github.com/user-attachments/assets/c3633c51-3280-4fe1-8945-54c3206eb69b" />
+
+
+
+
+
+
+# Airflow config 셋업
+
+```
+[core]
+# 1. 기존 설정 (예제 DAG 로드 활성화)
+#load_examples = True
+
+# 변경 후 설정 (예제 DAG 로드 차단)
+load_examples = False
+
+# 2. 스케줄러 실행 기준 시간대를 한국(KST)으로 변경
+#default_timezone = utc
+default_timezone = Asia/Seoul
+
+[api]
+host = 0.0.0.0  
+
+port = 8080
+
+# cpu 단일 코어 하나만 사용하겠다 webai worker는 한명이면 된다
+workers = 1 
+
+
+```
+
+
 
 ```
 # airflow.cfg 이후 migrate 
