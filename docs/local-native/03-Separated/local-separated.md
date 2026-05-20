@@ -4,6 +4,17 @@
 
 
 
+# 웹서버 설정 파일 열기 
+```
+vim ~/airflow/webserver_config.py
+
+# 1. 기본 언어 영어로 고정
+BABEL_DEFAULT_LOCALE = 'en'
+BABEL_SUPPORTED_LOCALES = ['en']
+
+# 2. 로그인 창에 회원가입(Register) 버튼 만들기 (필요 없으면 False로)
+AUTH_USER_REGISTRATION = True
+AUTH_USER_REGISTRATION_ROLE = "Admin"  # 또는 "Op"
 
 
 # Airflow config 셋업
