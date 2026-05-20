@@ -43,23 +43,22 @@ python3.11 --version
 # 출력 결과: Python 3.11.15
 ```
 
-### 3) Airflow 전용 가상환경(venv) 생성 및 셋업
-```
-bash
-# Ubuntu 26.04의 기본 파이썬(3.14)과 분리하기 위해 독립된 가상환경 방을 만듭니다.
-python3.11 -m venv ~/airflow_venv
-source ~/airflow_venv/bin/activate
-# 정상 활성화 시 터미널 프롬프트 앞에 (airflow_venv)가 표시됩니다.
-
-# 1. 터미널이 켜질 때마다 자동으로 경로를 잡도록 설정 파일 맨 아래에 주입 (한 줄로 끝)
+### 3) Airflow 전용 가상환경(venv) 생성 및 셋업 
+```bash
+# 1. 터미널이 켜질 때마다 자동으로 경로를 잡도록 설정 파일 맨 아래에 주입
 echo "export AIRFLOW_HOME=~/airflow" >> ~/.bashrc
 
 # 2. 변경된 설정 파일을 현재 터미널 창에 바로 새로고침(적용)
 source ~/.bashrc
 
-# 3. 정상적으로 경로가 잡혔는지 확인 (출력 결과: /home/ubuntu/airflow)
+# 3. 정상적으로 경로가 잡혔는지 확인
 echo $AIRFLOW_HOME
 # 출력 결과: /home/ubuntu/airflow
+
+# Ubuntu 26.04의 기본 파이썬(3.14)과 분리하기 위해 독립된 가상환경 방을 만듭니다.
+python3.11 -m venv ~/airflow_venv
+source ~/airflow_venv/bin/activate
+# 정상 활성화 시 터미널 프롬프트 앞에 (airflow_venv)가 표시됩니다.
 
 pip install --upgrade pip apache-airflow-providers-postgres psycopg2-binary 
 ```
