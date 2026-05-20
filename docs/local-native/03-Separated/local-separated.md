@@ -41,6 +41,18 @@ parallelism = 10
 # 하나의 Dag 총 Task 16개(개당 150M 메모리 점유)
 #max_active_tasks_per_dag = 16
 max_active_tasks_per_dag = 10
+
+[dag_processor]
+# dags 디렉토리에 새 파일 발견은 15초 정도면 충분히 빠릅니다.
+#refresh_interval = 300 
+refresh_interval = 15
+
+# dags 디렉토리에 기존 코드 수정은 10초 뒤에 반영되게 합니다.
+#min_file_process_interval = 30
+min_file_process_interval = 10
+
+# 팀원들이 동시 작업할 수 있으니 일꾼은 제안하신 대로 2명 유지!
+parsing_processes = 2
 ```
 
 ``` bash
@@ -49,11 +61,6 @@ max_active_tasks_per_dag = 10
 airflow db migrate
 ```
 
-결과적으로 유저님이 하시는 local-separated 공장은 푸티 창 여러 개 열 필요 없이 딱 이 3마리만 출근시키면 끝납니다.
-
-'''
- airflow api-server -D && airflow scheduler -D && airflow triggerer -D && airflow dag-processor -D
-'''
 
 #### airflow api-server -D ➔ 유저용 웹 화면을 보여주면서, 동시에 일꾼들의 장부 보고까지 혼자 다 처리하는 만능 매니저
 ```
@@ -95,9 +102,35 @@ ___  ___ |  / _  /   _  __/ _  / / /_/ /_ |/ |/ /
  _/_/  |_/_/  /_/    /_/    /_/  \____/____/|__/
 
 ```
+#### airflow dag-processor -D ➔ dag 코드가 수정될 때마다 실시간으로 싹 읽어서 스케줄러와 UI에 대령하는 열일하는 파서(Parser)
+```
+2026-05-19T11:28:00.471759Z [info     ] setup plugin alembic.autogenerate.schemas [alembic.runtime.plugins] loc=plugins.py:37
+2026-05-19T11:28:00.472013Z [info     ] setup plugin alembic.autogenerate.tables [alembic.runtime.plugins] loc=plugins.py:37
+2026-05-19T11:28:00.472131Z [info     ] setup plugin alembic.autogenerate.types [alembic.runtime.plugins] loc=plugins.py:37
+2026-05-19T11:28:00.472444Z [info     ] setup plugin alembic.autogenerate.constraints [alembic.runtime.plugins] loc=plugins.py:37
+2026-05-19T11:28:00.473472Z [info     ] setup plugin alembic.autogenerate.defaults [alembic.runtime.plugins] loc=plugins.py:37
+2026-05-19T11:28:00.473733Z [info     ] setup plugin alembic.autogenerate.comments [alembic.runtime.plugins] loc=plugins.py:37
+  ____________       _____________
+ ____    |__( )_________  __/__  /________      __
+____  /| |_  /__  ___/_  /_ __  /_  __ \_ | /| / /
+___  ___ |  / _  /   _  __/ _  / / /_/ /_ |/ |/ /
+ _/_/  |_/_/  /_/    /_/    /_/  \____/____/|__/
+
+```
+
+
+
+
+### airflow.config 수정 시 재실행 
+```
+sudo pkill -f airflow
+airflow db migrate
+airflow api-server -D && airflow scheduler -D && airflow triggerer -D && airflow dag-processor -D
+```
+
 
 ### 🏁 가동 완료 및 아키텍처 검증
 
-위의 3가지 명령어(`api-server`, `scheduler`, `triggerer`)가 백그라운드에서 정상 가동되었다면, 겉보기에는 기존 Standalone 모드와 같은 웹 화면이 뜨지만 내부 엔진은 완전히 달라진 상태입니다.
+위의 4가지 명령어(`api-server`, `scheduler`, `triggerer`, `dag-processor`)가 백그라운드에서 정상 가동되었다면, 겉보기에는 기존 Standalone 모드와 같은 웹 화면이 뜨지만 내부 엔진은 완전히 달라진 상태입니다.
 
 이제 우리는 **1) 웹서버가 뻗어도 배치가 멈추지 않는 '결함 격리 환경'**을 구축했으며, **2) PostgreSQL 장부 덕분에 수많은 태스크 워커들이 충돌 없이 동시에 병렬 처리(LocalExecutor)되는 진짜 실무형 분리 인프라**를 완성한 것입니다.
