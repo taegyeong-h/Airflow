@@ -29,7 +29,7 @@ host = 0.0.0.0
 
 port = 8080
 
-# cpu 단일 코어 하나만 사용하겠다
+# cpu 단일 코어 하나만 사용하겠다 webai worker는 한명이면 된다
 workers = 1 
 
 
