@@ -45,8 +45,8 @@ refresh_interval = 15
 #min_file_process_interval = 30
 min_file_process_interval = 10
 
-# 팀원들이 동시 작업할 수 있으니 일꾼은 제안하신 대로 2명 유지!
-parsing_processes = 2
+# guest os cpu 리소스가 4개면 3개 정도 주면 좋다 
+parsing_processes = 3
 ```
 
 ``` bash
