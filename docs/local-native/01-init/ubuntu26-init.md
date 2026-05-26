@@ -2,13 +2,13 @@
 
 ## 설치 환경
 ### Host OS: Win 10
-### Guest OS: Ubuntu 26.04
-### Python: V3.11
+### Guest OS: Ubuntu 26.04 server 
+### Python: V3.14
 ### Airflow: 3.2
 
 -- 
 ## 목차 
-### Ubuntu 26.04 초기 설정 및 Python 3.11 가상환경 구축
+### Ubuntu 26.04 초기 설정 및 Python 3.14 가상환경 구축
 ### Airflow 3.2.1 Install And Init Setup
 ### Postgres 설치 및 Airflow 메타데이터 DB 셋업 
 <br>
