@@ -1,22 +1,21 @@
-# 1. Ubuntu 26.04 In Virtualbox
+# Ubuntu 26.04 In Virtualbox
 
 ## 설치 환경
-### Host OS: Win 10
-### Guest OS: Ubuntu 26.04 server 
-### Python: V3.14
-### Airflow: 3.2
-
--- 
+- Host OS: Win 10
+- Guest OS: Ubuntu 26.04 server
+- Python: V3.14
+- Airflow: 3.2
+  
 ## 목차 
-### Ubuntu 26.04 초기 설정 및 Python 3.14 가상환경 구축
-### Airflow 3.2.1 Install And Init Setup
-### Postgres 설치 및 Airflow 메타데이터 DB 셋업 
+- Ubuntu 26.04 초기 설정 및 Python 3.14 가상환경 구축
+- Airflow 3.2.1 Install And Init Setup
+- Postgres 설치 및 Airflow 메타데이터 DB 셋업 
 <br>
 <br>
 
-## Ubuntu 26.04 초기 설정 및 Python 3.11 가상환경 구축
+## Ubuntu 26.04 초기 설정 및 Python 3.14 가상환경 구축
 
-### 1) Root 유저로 전환 후 ubuntu 유저를 sudo 그룹에 추가 
+### Root 유저로 전환 후 ubuntu 유저를 sudo 그룹에 추가 
 > 💡 **주의 / 선택 사항**
 > 일반 유저(`ubuntu`) 상태에서 `sudo` 명령어가 동작하지 않거나 권한 에러가 발생할 때만 진행하세요. (기본적으로 권한이 있다면 건너뛰셔도 됩니다.)
 > 
@@ -26,24 +25,19 @@ usermod -aG sudo ubuntu
 exit
 ```
 
-### 2) 일반 유저(ubuntu) 상태에서 패키지 업데이트
-```
-bash
+### 일반 유저(ubuntu) 상태에서 패키지 업데이트
+```bash
 # 최신 패키지 업데이트 및 업그레이드
 sudo apt update && sudo apt upgrade -y
 
-# 필수 도구(네트워크 체크, 텍스트 에디터, SSH, pip) 설치
-sudo apt install -y net-tools vim openssh-server pip
+# 필수 도구(네트워크 체크, 텍스트 에디터, SSH, pip, python3.14 가상환경) 설치
+sudo apt install -y net-tools vim openssh-server pip python3.14-venv
 
-# python 3.11 install
-sudo add-apt-repository ppa:deadsnakes/ppa -y
-sudo apt update
-sudo apt install python3.11 python3.11-venv python3.11-dev -y
-python3.11 --version
-# 출력 결과: Python 3.11.15
+python3 --version
+# 출력 결과: Python 3.14.4
 ```
 
-### 3) Airflow 전용 가상환경(venv) 생성 및 셋업 
+### Airflow 전용 가상환경(venv) 생성 및 셋업 
 ```bash
 # 1. 터미널이 켜질 때마다 자동으로 경로를 잡도록 설정 파일 맨 아래에 주입
 echo "export AIRFLOW_HOME=~/airflow" >> ~/.bashrc
@@ -56,9 +50,9 @@ echo $AIRFLOW_HOME
 # 출력 결과: /home/ubuntu/airflow
 
 # Ubuntu 26.04의 기본 파이썬(3.14)과 분리하기 위해 독립된 가상환경 방을 만듭니다.
-python3.11 -m venv ~/airflow_venv
+python3.14 -m venv ~/airflow_venv
 source ~/airflow_venv/bin/activate
-# 정상 활성화 시 터미널 프롬프트 앞에 (airflow_venv)가 표시됩니다.
+# 정상 활성화 시 터미널 프롬프트 앞에 *(airflow_venv)*가 표시됩니다.
 
 pip install --upgrade pip apache-airflow-providers-postgres psycopg2-binary apache-airflow-providers-amazon
 ```
@@ -73,23 +67,21 @@ pip install --upgrade pip apache-airflow-providers-postgres psycopg2-binary apac
 *"거기에 3.2을 입력하거나 목록에서 constraints-3-2*를 찾아서 클릭"
 <img width="736" height="698" alt="image" width="50%" src="https://github.com/user-attachments/assets/9762e6a0-caf5-4fef-9f8f-e1a34f39ef37" />
 
-파이썬 버전 3.11 
+파이썬 버전 3.14
 <br>
-<img width="1429" height="1354" alt="image" width="50%" src="https://github.com/user-attachments/assets/08756421-06aa-44e2-b197-ff47b7e083a1" />
+<img width="1449" height="1473" alt="image" src="https://github.com/user-attachments/assets/520555b9-13f0-465c-a5d3-01f786e6358b" />
 
 ```bash
 # 1. 3.2.1 전용으로 고정된 제약조건 URL 주소로 변경
-export CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-3.2.1/constraints-3.11.txt"
+export CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-3.2.1/constraints-3.14.txt"
 
 # 2. 설치 명령어 
 pip install "apache-airflow==3.2.1" --constraint "${CONSTRAINT_URL}"
 airflow version
 # 출력결과: 3.2.1
-# 3. 에어플로우 DAG 폴더 생성 (유저님 생각 정답!)
+# 3. 에어플로우 DAG 폴더 생성
 mkdir -p airflow/dags
 ```
-
-
 
 ## 4. [선택] PostgreSQL 엔진 설치 (실무 운영용)
 💡 이 단계는 향후 `standalone` 또는 `컴포넌트 분리 기동` 환경에서 SQLite의 단일 태스크 실행 제약을 풀고, 
