@@ -20,11 +20,8 @@ Ubuntu 26.04 설치 파일 URL
 
 
 ## Virtual Box Install
-
+  
 ![Virtual Box Install](./images/VirtualBox/image-01.png)
-
-
-
 
 ![Virtual Box Install](./images/VirtualBox/image-1.png)
 
@@ -42,19 +39,15 @@ Ubuntu 26.04 설치 파일 URL
 
 
 ## Ubuntu 26.04 Server 
-> **선택 사항**
->
-> 리소스를 줄이기 위해 Server 버전을 선택 하였고, GUI가 보이지 않습니다 GUI가 필요하면 "Server" 가 아닌 "Desktop" 버전으로 다운 받으셔야 합니다 
-
-
-
 
 ![Ubuntu 26.04 Server](./images/VirtualBox/image-10.png)
 
-![Ubuntu 26.04 Server](./images/VirtualBox/image-9.png)
+![Ubuntu 26.04 Server](./images/VirtualBox/image-9.png)  
+**ISO Image에 Ubuntu 26.04.ISO 파일 업로드**  
+![Ubuntu 26.04 Server](./images/VirtualBox/image-11.png)    
+**초기 계정, 패스워드 ubuntu / ubuntu**  
+**호스트네임: airflow-vm**  
 
-![Ubuntu 26.04 Server](./images/VirtualBox/image-11.png)
- 초기 계정, 패스워드 ubuntu / ubuntu 
 ![Ubuntu 26.04 Server](./images/VirtualBox/image-12.png)
 ![Ubuntu 26.04 Server](./images/VirtualBox/image-13.png)
 ![Ubuntu 26.04 Server](./images/VirtualBox/image-15.png)
@@ -63,23 +56,24 @@ Ubuntu 26.04 설치 파일 URL
 
 ![Ubuntu 26.04 Server](./images/VirtualBox/image-16.png)
 
-Ubuntu 26.04 실행 확인
+**Ubuntu 26.04 실행 확인**
 
 ![Ubuntu 26.04 Server](./images/VirtualBox/image-17.png)
 
-ubuntu / ubuntu 입력 
+**ubuntu / ubuntu 입력** 
 
 ![Ubuntu 26.04 Server](./images/VirtualBox/image-18.png)
 
-실행중인 리눅스 서버 시스템 종료 후 우클릭, 실행 클릭 
+**실행중인 리눅스 서버 시스템 종료 후 우클릭, 실행 클릭** 
 
 ![Ubuntu 26.04 Server](./images/VirtualBox/image-19.png)
 
-네트워크 -> 어댑터 2 (호스트 전용 어댑터 활성화) 후 서버 재실행
 
+> [!Note] 호스트 전용 어댑터를 활성화 해야 호스트 OS(Window) 에서 Guest(Ubuntu 26.04)에 SSH(22번포트)로 포트포워딩 없이 가능하다    
+**네트워크 -> 어댑터 2 (호스트 전용 어댑터 활성화) 후 서버 재실행**  
 ![Ubuntu 26.04 Server](./images/VirtualBox/image-20.png)
 
-ip a 명령 후 **enp0s8: 192.168.56.x/24** 대역 확인  
+**ip a 명령 후 **enp0s8: 192.168.56.x/24** 대역 확인**  
 
 ![Ubuntu 26.04 Server](./images/VirtualBox/image-21.png)
 
