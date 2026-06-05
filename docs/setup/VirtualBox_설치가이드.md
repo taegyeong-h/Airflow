@@ -5,7 +5,7 @@
 > [!Note] Ubuntu 26.04 Server 권장 리소스 입니다 추후 Airflow 설치 이후 동작에 끊김이 인다면 본인 PC 리소스에 맞게 리소스를 올려 주시면 됩니다 
 
 * **프로그램** :VirtualBox-7.2.8  
-* **OS** : Ubuntu 26.04 Server**
+* **OS** : Ubuntu 26.04 Server
 * **CPU** : 2
 * **Memory** : 2GB
 * **Hard** : 20GB
