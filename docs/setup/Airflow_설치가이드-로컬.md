@@ -1,7 +1,7 @@
 Airflow 설치 가이드 (로컬 개발 환경 - Standalone)
 ===
 
-> [!Note] VirtualBox_설치가이드.md 문서 이후에 진행이 되어야 합니다 (로컬 PC 환경 기준).
+>  [!Note] VirtualBox_설치가이드.md 문서 이후에 진행이 되어야 합니다 (로컬 PC 환경 기준).
 
 ## 설치 환경 및 목적
 본 가이드는 **로컬(개인 PC)** 가상머신 환경에서 Airflow를 가장 빠르고 가볍게 테스트하기 위한 **Standalone(단일 구동) 환경** 구축을 목표로 합니다.
@@ -52,7 +52,11 @@ echo $AIRFLOW_HOME
 # 출력 결과: /home/ubuntu/airflow
 
 4) 파이썬3.14 버전을 사용하기 위해 독립된 가상환경 방을 만듭니다.
-# Ubuntu 26.04 공식 가이드 사이트에 글로벌 환경에서 "pip install" 설치를 금지하며 "PEP 668","externally-managed-environment" 가상환경 사용을 강제하는 내용이 명시되어 있습니다 
+
+
+# Ubuntu 26.04 공식 가이드 사이트에 글로벌 환경에서 "pip install" 설치를 금지하며
+# "PEP 668","externally-managed-environment" 가상환경 사용을 강제하는 내용이 명시되어 있습니다
+
 python3.14 -m venv ~/airflow_venv 
 source ~/airflow_venv/bin/activate
 
