@@ -2,7 +2,8 @@
 
 
 ## 설치 환경
-> [!NOTE] Ubuntu 26.04 Server 권장 리소스 입니다 추후 Airflow 설치 이후 동작에 끊김이 인다면 본인 PC 리소스에 맞게 리소스를 올려 주시면 됩니다 
+> [!NOTE]
+>  Ubuntu 26.04 Server 권장 리소스 입니다 추후 Airflow 설치 이후 동작에 끊김이 인다면 본인 PC 리소스에 맞게 리소스를 올려 주시면 됩니다 
 
 * **프로그램** :VirtualBox-7.2.8  
 * **OS** : Ubuntu 26.04 Server
@@ -69,7 +70,8 @@ Ubuntu 26.04 설치 파일 URL
 ![Ubuntu 26.04 Server](./images/VirtualBox/image-19.png)
 
 
-> [!Note] 호스트 전용 어댑터를 활성화 해야 호스트 OS(Window) 에서 Guest(Ubuntu 26.04)에 SSH(22번포트)로 포트포워딩 없이 가능하다    
+> [!NOTE]
+>  호스트 전용 어댑터를 활성화 해야 호스트 OS(Window) 에서 Guest(Ubuntu 26.04)에 SSH(22번포트)로 포트포워딩 없이 가능하다    
 **네트워크 -> 어댑터 2 (호스트 전용 어댑터 활성화) 후 서버 재실행**  
 ![Ubuntu 26.04 Server](./images/VirtualBox/image-20.png)
 
